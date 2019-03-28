@@ -3,7 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportConnectWeb", "SportConnectWeb\SportConnectWeb.csproj", "{82AEFDE9-6DD5-4936-ADDA-C2F54C46D595}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportConnect.Api", "SportConnectWeb\SportConnect.Api.csproj", "{82AEFDE9-6DD5-4936-ADDA-C2F54C46D595}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{64A7B253-28FC-4851-9BF8-866D24622DCB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CFF134BD-E1D6-4BAD-B795-BE2C7662C8BF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{CF96E45E-0E4F-4A6F-AE4D-912B80CBFBFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportConnectTests", "SportConnectWebTests\SportConnectTests.csproj", "{C8588775-D86E-4A01-8E37-F2695A0A21BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportConnect.Core", "SportConnect.Core\SportConnect.Core.csproj", "{41EF4D1E-5E94-4235-ABE3-8F696C1D106C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportConnect.Infrastructure", "SportConnect.Infrastructure\SportConnect.Infrastructure.csproj", "{FAB627AE-474A-4EB4-B0F8-B9F7740C816D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +27,27 @@ Global
 		{82AEFDE9-6DD5-4936-ADDA-C2F54C46D595}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82AEFDE9-6DD5-4936-ADDA-C2F54C46D595}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82AEFDE9-6DD5-4936-ADDA-C2F54C46D595}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8588775-D86E-4A01-8E37-F2695A0A21BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8588775-D86E-4A01-8E37-F2695A0A21BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8588775-D86E-4A01-8E37-F2695A0A21BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8588775-D86E-4A01-8E37-F2695A0A21BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41EF4D1E-5E94-4235-ABE3-8F696C1D106C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41EF4D1E-5E94-4235-ABE3-8F696C1D106C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41EF4D1E-5E94-4235-ABE3-8F696C1D106C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41EF4D1E-5E94-4235-ABE3-8F696C1D106C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAB627AE-474A-4EB4-B0F8-B9F7740C816D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAB627AE-474A-4EB4-B0F8-B9F7740C816D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAB627AE-474A-4EB4-B0F8-B9F7740C816D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAB627AE-474A-4EB4-B0F8-B9F7740C816D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{82AEFDE9-6DD5-4936-ADDA-C2F54C46D595} = {64A7B253-28FC-4851-9BF8-866D24622DCB}
+		{C8588775-D86E-4A01-8E37-F2695A0A21BF} = {CFF134BD-E1D6-4BAD-B795-BE2C7662C8BF}
+		{41EF4D1E-5E94-4235-ABE3-8F696C1D106C} = {64A7B253-28FC-4851-9BF8-866D24622DCB}
+		{FAB627AE-474A-4EB4-B0F8-B9F7740C816D} = {64A7B253-28FC-4851-9BF8-866D24622DCB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FBC20297-B647-4A65-97B1-54B8CD9AFAF5}
