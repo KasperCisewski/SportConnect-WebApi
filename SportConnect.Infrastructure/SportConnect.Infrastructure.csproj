@@ -6,11 +6,17 @@
 
   <ItemGroup>
     <Folder Include="Data\Migration\" />
-    <Folder Include="DTO\" />
     <Folder Include="IoC\" />
-    <Folder Include="Mappers\" />
-    <Folder Include="Services\" />
-    <Folder Include="Repositories\" />
+    <Folder Include="Services\Abstraction\" />
+    <Folder Include="Services\Implemenation\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="5.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SportConnect.Core\SportConnect.Core.csproj" />
   </ItemGroup>
 
 </Project>
