@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using SportConnect.Core.Domain;
 using SportConnect.Core.Repositories;
 using SportConnect.Infrastructure.Dto;
+using SportConnect.Infrastructure.Services.Abstraction;
 
-namespace SportConnect.Infrastructure.Services
+namespace SportConnect.Infrastructure.Services.Implemenation
 {
     public class UserService : IUserService
     {

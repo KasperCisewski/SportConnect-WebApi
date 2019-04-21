@@ -1,17 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using SportConnect.Core.Domain;
 using SportConnect.Core.Repositories;
+using SportConnect.Infrastructure.Data;
 
 namespace SportConnect.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
+        private readonly SportConnectContext _context;
 
-        public Task Add(User user)
+        public UserRepository(SportConnectContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+
+        public async Task Add(User user)
+        {
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+
         }
 
         public Task<IEnumerable<User>> GetAll()
@@ -19,24 +29,27 @@ namespace SportConnect.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<User> Get(Guid id)
+        public async Task<User> Get(Guid id)
         {
-            throw new NotImplementedException();
+            return _context.Users.FirstOrDefault(u => u.Id == id);
         }
 
-        public Task<User> Get(string email)
+        public async Task<User> Get(string email)
         {
-            throw new NotImplementedException();
+            return _context.Users.FirstOrDefault(u => u.Email == email);
         }
 
-        public Task Remove(Guid id)
+        public async Task Remove(Guid id)
         {
-            throw new NotImplementedException();
+            var user = await Get(id);
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
         }
 
-        public Task Update(User user)
+        public async Task Update(User user)
         {
-            throw new NotImplementedException();
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
         }
     }
 }

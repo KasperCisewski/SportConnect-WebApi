@@ -24,6 +24,40 @@ namespace SportConnect.Api.Controllers
 
             return new LoginApiModel();
         }
+
+        [HttpGet]
+        [Route("isEmailExist")]
+        public async Task<EmailExistApiModel> SignIn(string email)
+        {
+            return new EmailExistApiModel
+            {
+                IsExist = true
+            };
+            return new EmailExistApiModel();
+        }
+
+        [HttpGet]
+        [Route("isLoginExist")]
+        public async Task<LoginExistApiModel> IsLoginExist(string login)
+        {
+            return new LoginExistApiModel
+            {
+                IsExist = true
+            };
+
+            return new LoginExistApiModel();
+        }
+
+    }
+
+    public class LoginExistApiModel
+    {
+        public bool IsExist { get; set; }
+    }
+
+    public class EmailExistApiModel
+    {
+        public bool IsExist { get; set; }
     }
 
     public class LoginApiModel
