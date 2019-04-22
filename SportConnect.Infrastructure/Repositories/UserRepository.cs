@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using SportConnect.Core.Domain;
 using SportConnect.Core.Repositories;
 using SportConnect.Infrastructure.Data;
@@ -24,9 +25,9 @@ namespace SportConnect.Infrastructure.Repositories
 
         }
 
-        public Task<IEnumerable<User>> GetAll()
+        public async Task<IEnumerable<User>> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Users.ToList();
         }
 
         public async Task<User> Get(Guid id)

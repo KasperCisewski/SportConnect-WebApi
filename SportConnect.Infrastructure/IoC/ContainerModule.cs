@@ -22,7 +22,7 @@ namespace SportConnect.Infrastructure.IoC
             builder.RegisterModule<RepositoryModule>();
             //builder.RegisterModule<MongoModule>();
             //builder.RegisterModule<SqlModule>();
-            //builder.RegisterModule<ServiceModule>();
+            builder.RegisterModule<ServiceModule>();
             builder.RegisterModule(new SettingsModule(_configuration));
         }
     }

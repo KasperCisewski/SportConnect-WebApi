@@ -27,7 +27,7 @@ namespace SportConnect.Api.Controllers
 
         [HttpGet]
         [Route("isEmailExist")]
-        public async Task<EmailExistApiModel> SignIn(string email)
+        public async Task<EmailExistApiModel> IsEmailExist(string email)
         {
             return new EmailExistApiModel
             {
