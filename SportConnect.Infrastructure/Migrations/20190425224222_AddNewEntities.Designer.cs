@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportConnect.Infrastructure.Data;
 
 namespace SportConnect.Infrastructure.Migrations
 {
     [DbContext(typeof(SportConnectContext))]
-    partial class SportConnectContextModelSnapshot : ModelSnapshot
+    [Migration("20190425224222_AddNewEntities")]
+    partial class AddNewEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,8 +80,6 @@ namespace SportConnect.Infrastructure.Migrations
 
                     b.Property<DateTime>("CreationDateTime");
 
-                    b.Property<string>("RoleName");
-
                     b.HasKey("Id");
 
                     b.ToTable("Role");
@@ -98,32 +98,13 @@ namespace SportConnect.Infrastructure.Migrations
 
                     b.Property<int>("MaximumNumberOfParticipants");
 
-                    b.Property<Guid>("SportEventManager");
-
-                    b.Property<int>("SportSkillLevelId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("EventPlaceId");
 
                     b.HasIndex("EventTypeId");
 
-                    b.HasIndex("SportSkillLevelId");
-
                     b.ToTable("SportEvents");
-                });
-
-            modelBuilder.Entity("SportConnect.Core.Domain.SportSkillLevel", b =>
-                {
-                    b.Property<int>("Id");
-
-                    b.Property<DateTime>("CreationDateTime");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SportSkillLevel");
                 });
 
             modelBuilder.Entity("SportConnect.Core.Domain.SportType", b =>
@@ -155,8 +136,6 @@ namespace SportConnect.Infrastructure.Migrations
                     b.Property<string>("Password");
 
                     b.Property<int?>("RoleId");
-
-                    b.Property<int>("UserRoleId");
 
                     b.HasKey("Id");
 
@@ -200,11 +179,6 @@ namespace SportConnect.Infrastructure.Migrations
                     b.HasOne("SportConnect.Core.Domain.EventType", "EventType")
                         .WithMany()
                         .HasForeignKey("EventTypeId");
-
-                    b.HasOne("SportConnect.Core.Domain.SportSkillLevel", "ProposedEventSkillLevel")
-                        .WithMany()
-                        .HasForeignKey("SportSkillLevelId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SportConnect.Core.Domain.User", b =>

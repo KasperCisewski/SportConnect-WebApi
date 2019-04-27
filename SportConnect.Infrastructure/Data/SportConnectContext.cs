@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SportConnect.Core.Domain;
 
 namespace SportConnect.Infrastructure.Data
@@ -10,10 +7,18 @@ namespace SportConnect.Infrastructure.Data
     {
         private readonly SqlSettings _settings;
         public DbSet<User> Users { get; set; }
+        public DbSet<SportEvent> SportEvents { get; set; }
+        public DbSet<UserSportEvent> UserSportEvents { get; set; }
 
         public SportConnectContext(DbContextOptions<SportConnectContext> options, SqlSettings settings) : base(options)
         {
             _settings = settings;
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserSportEvent>()
+                 .HasKey(use => new { use.UserId, use.SportEventId });
         }
 
         protected override void OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder optionsBuilder)

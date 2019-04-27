@@ -33,7 +33,6 @@ namespace SportConnect.Api.Controllers
             {
                 IsExist = true
             };
-            return new EmailExistApiModel();
         }
 
         [HttpGet]
@@ -44,10 +43,7 @@ namespace SportConnect.Api.Controllers
             {
                 IsExist = true
             };
-
-            return new LoginExistApiModel();
         }
-
     }
 
     public class LoginExistApiModel

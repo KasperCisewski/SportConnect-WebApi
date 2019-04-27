@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using SportConnect.Core.Domain;
@@ -26,7 +27,9 @@ namespace SportConnect.Infrastructure.Services.Implemenation
             {
                 Email = registrationResponseApiModel.Email,
                 Login = registrationResponseApiModel.Login,
-                Password = registrationResponseApiModel.Password
+                Password = registrationResponseApiModel.Password,
+                UserRoleId = Core.Enums.Role.Normal,
+                FavouriteSportTypeId = registrationResponseApiModel.FavoriteSportTypeId
             });
 
             return _userRepository.GetAll().Result.Any(u =>
