@@ -28,7 +28,10 @@ namespace SportConnect.Infrastructure.Services.Implemenation
 
         public bool TryToLogin(string login, string password)
         {
-            return _userRepository.GetAll().Result.First(u => (u.Login == login && u.Password == password) || (u.Email == login && u.Password == password)) != null;
+            return _userRepository
+                .GetAll()
+                .Result
+                .First(u => (u.Login == login && u.Password == password) || (u.Email == login && u.Password == password)) != null;
         }
     }
 }
