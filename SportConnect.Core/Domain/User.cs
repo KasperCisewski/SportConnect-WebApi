@@ -11,7 +11,7 @@ namespace SportConnect.Core.Domain
         public string Password { get; set; }
         public int FavouriteSportTypeId { get; set; }
         public virtual SportType FavouriteSportType { get; set; }
-        public int RoleId { get; set; }
+        public Enums.Role RoleId { get; set; }
         public virtual Role Role { get; set; }
         public virtual IEnumerable<UserSportEvent> ConfirmedSportEvents { get; set; } = new List<UserSportEvent>();
         public virtual IEnumerable<Message> Messages { get; set; } = new List<Message>();

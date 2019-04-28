@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportConnect.Infrastructure.Data;
 
 namespace SportConnect.Infrastructure.Migrations
 {
     [DbContext(typeof(SportConnectContext))]
-    partial class SportConnectContextModelSnapshot : ModelSnapshot
+    [Migration("20190428113253_AddProposedNumberOfParticipantsInSportTypeTable")]
+    partial class AddProposedNumberOfParticipantsInSportTypeTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

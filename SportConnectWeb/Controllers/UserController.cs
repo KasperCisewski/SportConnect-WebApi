@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SportConnect.Infrastructure.Services.Abstraction;
 
 namespace SportConnect.Api.Controllers
 {
@@ -10,19 +8,24 @@ namespace SportConnect.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private readonly IUserService _userService;
+
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         [HttpGet]
         [Route("signIn")]
         public async Task<LoginApiModel> SignIn(string login, string password)
         {
-            if (login != password)
-            {
-                return new LoginApiModel
-                {
-                    IsLogged = true
-                };
-            }
 
-            return new LoginApiModel();
+            var tryToLogInToApp = _userService.TryToLogin(login, password);
+
+            return new LoginApiModel
+            {
+                IsLogged = tryToLogInToApp
+            };
         }
 
         [HttpGet]

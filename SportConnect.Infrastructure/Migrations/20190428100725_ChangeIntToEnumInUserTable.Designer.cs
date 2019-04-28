@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportConnect.Infrastructure.Data;
 
 namespace SportConnect.Infrastructure.Migrations
 {
     [DbContext(typeof(SportConnectContext))]
-    partial class SportConnectContextModelSnapshot : ModelSnapshot
+    [Migration("20190428100725_ChangeIntToEnumInUserTable")]
+    partial class ChangeIntToEnumInUserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,8 +164,6 @@ namespace SportConnect.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreationDateTime");
-
-                    b.Property<int>("ProposedNumberOfParticipants");
 
                     b.Property<string>("SportName");
 

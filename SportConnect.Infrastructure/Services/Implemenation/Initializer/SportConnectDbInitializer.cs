@@ -22,7 +22,6 @@ namespace SportConnect.Infrastructure.Services.Implemenation.Initializer
             {
                 _sportConnectContext.Database.OpenConnection();
 
-
                 if (!_sportConnectContext.Role.Any())
                 {
                     await _sportConnectContext.Role.AddAsync(new Core.Domain.Role
@@ -80,7 +79,8 @@ namespace SportConnect.Infrastructure.Services.Implemenation.Initializer
                 {
                     _sportConnectContext.SportType.Add(new Core.Domain.SportType
                     {
-                        SportName = "Football"
+                        SportName = "Football",
+                        ProposedNumberOfParticipants = 12
                     });
                     _sportConnectContext.SaveChanges();
 
@@ -90,16 +90,17 @@ namespace SportConnect.Infrastructure.Services.Implemenation.Initializer
                     });
                     _sportConnectContext.SaveChanges();
 
-
                     _sportConnectContext.SportType.Add(new Core.Domain.SportType
                     {
-                        SportName = "Voleyball"
+                        SportName = "Voleyball",
+                        ProposedNumberOfParticipants = 12
                     });
                     _sportConnectContext.SaveChanges();
 
                     _sportConnectContext.SportType.Add(new Core.Domain.SportType
                     {
-                        SportName = "Tennis"
+                        SportName = "Tennis",
+                        ProposedNumberOfParticipants = 2
                     });
                     _sportConnectContext.SaveChanges();
 
@@ -129,7 +130,7 @@ namespace SportConnect.Infrastructure.Services.Implemenation.Initializer
                         Login = "admin",
                         Email = "admin@sc.com",
                         Password = "test12!",
-                        RoleId = (int)Core.Enums.Role.Administrator,
+                        RoleId = Core.Enums.Role.Administrator,
                         FavouriteSportTypeId = 1
                     });
                     _sportConnectContext.SaveChanges();
@@ -139,7 +140,7 @@ namespace SportConnect.Infrastructure.Services.Implemenation.Initializer
                         Login = "user",
                         Email = "user@sc.com",
                         Password = "test12!",
-                        RoleId = (int)Core.Enums.Role.Normal,
+                        RoleId = Core.Enums.Role.Normal,
                         FavouriteSportTypeId = 2
                     });
                     _sportConnectContext.SaveChanges();
