@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SportConnect.Infrastructure.DTO
+﻿namespace SportConnect.Infrastructure.DTO
 {
     public class RegistrationResponseApiModel
     {

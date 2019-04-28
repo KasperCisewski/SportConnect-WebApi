@@ -19,7 +19,6 @@ namespace SportConnect.Api.Controllers
         [Route("signIn")]
         public async Task<LoginApiModel> SignIn(string login, string password)
         {
-
             var tryToLogInToApp = _userService.TryToLogin(login, password);
 
             return new LoginApiModel
@@ -32,9 +31,11 @@ namespace SportConnect.Api.Controllers
         [Route("isEmailExist")]
         public async Task<EmailExistApiModel> IsEmailExist(string email)
         {
+            var isExist = await _userService.CheckEmailIsExist(email);
+
             return new EmailExistApiModel
             {
-                IsExist = true
+                IsExist = isExist
             };
         }
 
@@ -42,9 +43,11 @@ namespace SportConnect.Api.Controllers
         [Route("isLoginExist")]
         public async Task<LoginExistApiModel> IsLoginExist(string login)
         {
+            var isExist = await _userService.CheckLoginIsExist(login);
+
             return new LoginExistApiModel
             {
-                IsExist = true
+                IsExist = isExist
             };
         }
     }

@@ -7,5 +7,7 @@ namespace SportConnect.Infrastructure.Services.Abstraction
     {
         Task<UserDto> Get(string email);
         bool TryToLogin(string login, string password);
+        Task<bool> CheckEmailIsExist(string email);
+        Task<bool> CheckLoginIsExist(string login);
     }
 }

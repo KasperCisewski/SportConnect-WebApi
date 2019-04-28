@@ -19,6 +19,24 @@ namespace SportConnect.Infrastructure.Services.Implemenation
             _mapper = mapper;
         }
 
+        public Task<bool> CheckEmailIsExist(string email)
+        {
+            var emailsInRepository = _userRepository
+                .GetAll()
+                .Select(u => u.Email);
+
+            return Task.FromResult(emailsInRepository.Contains(email));
+        }
+
+        public Task<bool> CheckLoginIsExist(string login)
+        {
+            var allLoginsInRepository = _userRepository
+                .GetAll()
+                .Select(u => u.Login);
+
+            return Task.FromResult(allLoginsInRepository.Contains(login));
+        }
+
         public async Task<UserDto> Get(string email)
         {
             var user = await _userRepository.Get(email);
@@ -30,7 +48,6 @@ namespace SportConnect.Infrastructure.Services.Implemenation
         {
             return _userRepository
                 .GetAll()
-                .Result
                 .First(u => (u.Login == login && u.Password == password) || (u.Email == login && u.Password == password)) != null;
         }
     }

@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using SportConnect.Core.Domain;
 
@@ -10,7 +9,7 @@ namespace SportConnect.Core.Repositories
     {
         Task<User> Get(Guid id);
         Task<User> Get(string email);
-        Task<IEnumerable<User>> GetAll();
+        IQueryable<User> GetAll();
         Task Add(User user);
         Task Update(User user);
         Task Remove(Guid id);

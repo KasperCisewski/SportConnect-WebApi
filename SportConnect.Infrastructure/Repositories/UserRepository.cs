@@ -25,9 +25,9 @@ namespace SportConnect.Infrastructure.Repositories
 
         }
 
-        public async Task<IEnumerable<User>> GetAll()
+        public IQueryable<User> GetAll()
         {
-            return _context.User.ToList();
+            return _context.User.AsQueryable();
         }
 
         public async Task<User> Get(Guid id)
@@ -52,5 +52,6 @@ namespace SportConnect.Infrastructure.Repositories
             _context.User.Update(user);
             await _context.SaveChangesAsync();
         }
+
     }
 }
