@@ -2,7 +2,8 @@
 
 namespace SportConnect.Core.Domain
 {
-    public class EventType : Entity<int>
+    public class EventType : Entity<Enums.EventType>
     {
+        public string Name { get; set; }
     }
 }

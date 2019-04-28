@@ -5,6 +5,41 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190421121956_EFCoreFirstInitialize.cs" />
+    <Compile Remove="Migrations\20190421121956_EFCoreFirstInitialize.Designer.cs" />
+    <Compile Remove="Migrations\20190425224222_AddNewEntities.cs" />
+    <Compile Remove="Migrations\20190425224222_AddNewEntities.Designer.cs" />
+    <Compile Remove="Migrations\20190427160128_AddSkillLevelTable.cs" />
+    <Compile Remove="Migrations\20190427160128_AddSkillLevelTable.Designer.cs" />
+    <Compile Remove="Migrations\20190427224444_AddNewMigrationAddAllTables.cs" />
+    <Compile Remove="Migrations\20190427224444_AddNewMigrationAddAllTables.Designer.cs" />
+    <Compile Remove="Migrations\20190427230211_AddNewMigrationAddAllTables.cs" />
+    <Compile Remove="Migrations\20190427230211_AddNewMigrationAddAllTables.Designer.cs" />
+    <Compile Remove="Migrations\20190427230401_AddNewMigrationAddAllTables.cs" />
+    <Compile Remove="Migrations\20190427230401_AddNewMigrationAddAllTables.Designer.cs" />
+    <Compile Remove="Migrations\20190427231517_AddNewMigrationAddAllTables.cs" />
+    <Compile Remove="Migrations\20190427231517_AddNewMigrationAddAllTables.Designer.cs" />
+    <Compile Remove="Migrations\20190427231527_AddNewMigrationAddAllTables.cs" />
+    <Compile Remove="Migrations\20190427231527_AddNewMigrationAddAllTables.Designer.cs" />
+    <Compile Remove="Migrations\20190427232309_AddNewMigrationAddAllTables.cs" />
+    <Compile Remove="Migrations\20190427232309_AddNewMigrationAddAllTables.Designer.cs" />
+    <Compile Remove="Migrations\20190427232350_AddNewMigrationAddAllTables.cs" />
+    <Compile Remove="Migrations\20190427232350_AddNewMigrationAddAllTables.Designer.cs" />
+    <Compile Remove="Migrations\20190427232546_AddNewMigrationAddAllTables.cs" />
+    <Compile Remove="Migrations\20190427232546_AddNewMigrationAddAllTables.Designer.cs" />
+    <Compile Remove="Migrations\20190427233038_AddNewMigrationAddAllTables.cs" />
+    <Compile Remove="Migrations\20190427233038_AddNewMigrationAddAllTables.Designer.cs" />
+    <Compile Remove="Migrations\20190427233530_AddNewMigrationAddAllTables.cs" />
+    <Compile Remove="Migrations\20190427233530_AddNewMigrationAddAllTables.Designer.cs" />
+    <Compile Remove="Migrations\20190427233649_AddNewMigrationAddAllTables.cs" />
+    <Compile Remove="Migrations\20190427233649_AddNewMigrationAddAllTables.Designer.cs" />
+    <Compile Remove="Migrations\20190427233742_AddNewMigrationAddAllTables.cs" />
+    <Compile Remove="Migrations\20190427233742_AddNewMigrationAddAllTables.Designer.cs" />
+    <Compile Remove="Migrations\20190428010205_AddFirstLookForTables.cs" />
+    <Compile Remove="Migrations\20190428010205_AddFirstLookForTables.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="4.5.0" />
     <PackageReference Include="AutoMapper" Version="5.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />

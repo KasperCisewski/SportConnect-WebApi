@@ -4,6 +4,6 @@ namespace SportConnect.Core.Domain
 {
     public class SportType : Entity<int>
     {
-
+        public string SportName { get; set; }
     }
 }

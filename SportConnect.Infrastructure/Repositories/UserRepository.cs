@@ -20,36 +20,36 @@ namespace SportConnect.Infrastructure.Repositories
 
         public async Task Add(User user)
         {
-            await _context.Users.AddAsync(user);
+            await _context.User.AddAsync(user);
             await _context.SaveChangesAsync();
 
         }
 
         public async Task<IEnumerable<User>> GetAll()
         {
-            return _context.Users.ToList();
+            return _context.User.ToList();
         }
 
         public async Task<User> Get(Guid id)
         {
-            return _context.Users.FirstOrDefault(u => u.Id == id);
+            return _context.User.FirstOrDefault(u => u.Id == id);
         }
 
         public async Task<User> Get(string email)
         {
-            return _context.Users.FirstOrDefault(u => u.Email == email);
+            return _context.User.FirstOrDefault(u => u.Email == email);
         }
 
         public async Task Remove(Guid id)
         {
             var user = await Get(id);
-            _context.Users.Remove(user);
+            _context.User.Remove(user);
             await _context.SaveChangesAsync();
         }
 
         public async Task Update(User user)
         {
-            _context.Users.Update(user);
+            _context.User.Update(user);
             await _context.SaveChangesAsync();
         }
     }

@@ -28,7 +28,7 @@ namespace SportConnect.Infrastructure.Services.Implemenation
                 Email = registrationResponseApiModel.Email,
                 Login = registrationResponseApiModel.Login,
                 Password = registrationResponseApiModel.Password,
-                UserRoleId = Core.Enums.Role.Normal,
+                RoleId = (int)Core.Enums.Role.Normal,
                 FavouriteSportTypeId = registrationResponseApiModel.FavoriteSportTypeId
             });
 
