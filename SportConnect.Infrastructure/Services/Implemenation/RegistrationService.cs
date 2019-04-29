@@ -32,7 +32,7 @@ namespace SportConnect.Infrastructure.Services.Implemenation
                 FavouriteSportTypeId = registrationResponseApiModel.FavoriteSportTypeId
             });
 
-            return _userRepository.GetAll().Result.Any(u =>
+            return _userRepository.GetAll().Any(u =>
                 u.Login == registrationResponseApiModel.Login && u.Email == registrationResponseApiModel.Email);
         }
     }

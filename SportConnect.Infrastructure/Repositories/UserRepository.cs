@@ -53,5 +53,13 @@ namespace SportConnect.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task AddNewLogRecord(Guid userId)
+        {
+            _context.UserLogRecords.Add(new UserLogRecords
+            {
+                UserId = userId
+            });
+            await _context.SaveChangesAsync();
+        }
     }
 }

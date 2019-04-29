@@ -16,9 +16,10 @@ namespace SportConnect.Infrastructure.Data
         public DbSet<Role> Role { get; set; }
         public DbSet<SportSkillLevel> SportSkillLevel { get; set; }
         public DbSet<SportType> SportType { get; set; }
+        public DbSet<UserLogRecords> UserLogRecords { get; set; }
 
-
-        public SportConnectContext(DbContextOptions<SportConnectContext> options, SqlSettings settings) : base(options)
+        public SportConnectContext(DbContextOptions<SportConnectContext> options, 
+            SqlSettings settings) : base(options)
         {
             _settings = settings;
         }
@@ -27,11 +28,13 @@ namespace SportConnect.Infrastructure.Data
         {
             modelBuilder.Entity<Message>()
                 .HasKey(use => new { use.UserId, use.SportEventId });
+
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.User)
                 .WithMany(se => se.Messages)
                 .HasForeignKey(m => m.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.SportEvent)
                 .WithMany(se => se.Messages)
@@ -40,11 +43,13 @@ namespace SportConnect.Infrastructure.Data
 
             modelBuilder.Entity<UserSportEvent>()
                  .HasKey(use => new { use.UserId, use.SportEventId });
+
             modelBuilder.Entity<UserSportEvent>()
              .HasOne(m => m.User)
              .WithMany(se => se.ConfirmedSportEvents)
              .HasForeignKey(m => m.UserId)
              .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<UserSportEvent>()
                 .HasOne(m => m.SportEvent)
                 .WithMany(se => se.ConfirmedEventParticipants)

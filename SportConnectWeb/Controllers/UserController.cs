@@ -19,7 +19,7 @@ namespace SportConnect.Api.Controllers
         [Route("signIn")]
         public async Task<LoginApiModel> SignIn(string login, string password)
         {
-            var tryToLogInToApp = _userService.TryToLogin(login, password);
+            var tryToLogInToApp = await _userService.TryToLogin(login, password);
 
             return new LoginApiModel
             {

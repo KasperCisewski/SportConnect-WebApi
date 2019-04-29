@@ -15,5 +15,6 @@ namespace SportConnect.Core.Domain
         public virtual Role Role { get; set; }
         public virtual IEnumerable<UserSportEvent> ConfirmedSportEvents { get; set; } = new List<UserSportEvent>();
         public virtual IEnumerable<Message> Messages { get; set; } = new List<Message>();
+        public virtual IEnumerable<UserLogRecords> UserLogRecords { get; set; }
     }
 }
