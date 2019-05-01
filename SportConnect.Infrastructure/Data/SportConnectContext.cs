@@ -57,7 +57,7 @@ namespace SportConnect.Infrastructure.Data
                 .OnDelete(DeleteBehavior.Restrict);
         }
 
-        protected override void OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (_settings.InMemory)
             {
