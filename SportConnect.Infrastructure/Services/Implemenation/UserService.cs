@@ -6,6 +6,7 @@ using SportConnect.Infrastructure.Dto;
 using SportConnect.Infrastructure.Services.Abstraction;
 using System.Linq;
 using System;
+using SportConnect.Infrastructure.DTO;
 
 namespace SportConnect.Infrastructure.Services.Implemenation
 {
@@ -45,21 +46,34 @@ namespace SportConnect.Infrastructure.Services.Implemenation
             return _mapper.Map<User, UserDto>(user);
         }
 
-        public Task<bool> TryToLogin(string login, string password)
+        public Task<LoginApiModel> TryToLoginAndGetUserRoleId(string login, string password)
         {
-            var userId = _userRepository
+            var tryToLoginToAppQuery = _userRepository
                                  .GetAll()
-                                 .First(u =>
+                                 .Where(u =>
                                  (u.Login == login && u.Password == password) ||
                                  (u.Email == login && u.Password == password))
-                                 .Id;
+                                 .Select(u => new
+                                 {
+                                     UserId = u.Id,
+                                     UserRoleId = (int)u.RoleId
+                                 })
+                                 .First();
 
-            if (userId != null)
+
+            if (tryToLoginToAppQuery != null)
             {
-                _userRepository.AddNewLogRecord(userId);
-                return Task.FromResult(true);
+                _userRepository.AddNewLogRecord(tryToLoginToAppQuery.UserId);
+
+                var loginApiResult = new LoginApiModel
+                {
+                    IsSuccess = true,
+                    UserRoleId = tryToLoginToAppQuery.UserRoleId
+                };
+
+                return Task.FromResult(loginApiResult);
             }
-            return Task.FromResult(false);
+            return Task.FromResult(new LoginApiModel());
 
         }
     }

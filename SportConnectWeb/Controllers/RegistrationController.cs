@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SportConnect.Infrastructure.DTO;
 using SportConnect.Infrastructure.Services.Abstraction;
-using SportConnect.Infrastructure.Services.Implemenation;
 
 namespace SportConnect.Api.Controllers
 {
