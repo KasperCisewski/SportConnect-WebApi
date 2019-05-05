@@ -61,5 +61,11 @@ namespace SportConnect.Infrastructure.Repositories
             });
             await _context.SaveChangesAsync();
         }
+
+        public async Task Remove(User user)
+        {
+            _context.User.Remove(user);
+            await _context.SaveChangesAsync();
+        }
     }
 }

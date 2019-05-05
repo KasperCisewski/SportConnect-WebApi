@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SportConnect.Infrastructure.DTO.SportEvent;
 using SportConnect.Infrastructure.Services.Abstraction;
 
 namespace SportConnect.Api.Controllers
@@ -17,6 +18,13 @@ namespace SportConnect.Api.Controllers
         public SportEventController(ISportEventService sportEventService)
         {
             _sportEventService = sportEventService;
+        }
+       
+        [HttpPost]
+        [Route("getSportEvents")]
+        public async Task<IQueryable<SportEventModel>> GetSportEvents([FromBody]SportEventApiModel registrationResponseApiModel)
+        {
+            return await _sportEventService.GetSportEvents(registrationResponseApiModel);
         }
     }
 }
