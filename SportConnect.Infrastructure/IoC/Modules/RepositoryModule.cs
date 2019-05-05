@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Autofac;
+using SportConnect.Core.Domain.Base;
 using SportConnect.Core.Repositories;
 
 namespace SportConnect.Infrastructure.IoC.Modules
@@ -13,7 +14,7 @@ namespace SportConnect.Infrastructure.IoC.Modules
                 .Assembly;
 
             builder.RegisterAssemblyTypes(assembly)
-                .Where(x => x.IsAssignableTo<IRepository>())
+                .Where(x => x.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
         }

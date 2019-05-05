@@ -7,5 +7,7 @@ namespace SportConnect.Infrastructure.DTO.SportEvent
         public Guid UserId { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        public int Take { get; set; }
+        public int Skip { get; set; }
     }
 }

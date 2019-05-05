@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
-using SportConnect.Core.Domain;
 using SportConnect.Core.Repositories;
-using SportConnect.Infrastructure.Dto;
 using SportConnect.Infrastructure.Services.Abstraction;
 using System.Linq;
 using System;
@@ -37,13 +35,6 @@ namespace SportConnect.Infrastructure.Services.Implemenation
                 .Select(u => u.Login).ToList();
 
             return Task.FromResult(allLoginsInRepository.Contains(login));
-        }
-
-        public async Task<UserDto> Get(string email)
-        {
-            var user = await _userRepository.Get(email);
-
-            return _mapper.Map<User, UserDto>(user);
         }
 
         public Task<LoginApiModel> TryToLoginAndGetUserRoleId(string login, string password)

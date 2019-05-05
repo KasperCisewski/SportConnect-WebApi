@@ -2,7 +2,7 @@
 
 namespace SportConnect.Core.Repositories
 {
-    interface ISportEventRepository : IRepository<SportEvent>
+    public interface ISportEventRepository : IRepository<SportEvent>
     {
 
     }

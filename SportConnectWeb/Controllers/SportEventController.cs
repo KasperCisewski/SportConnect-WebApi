@@ -19,12 +19,12 @@ namespace SportConnect.Api.Controllers
         {
             _sportEventService = sportEventService;
         }
-       
+
         [HttpPost]
         [Route("getSportEvents")]
-        public async Task<IQueryable<SportEventModel>> GetSportEvents([FromBody]SportEventApiModel registrationResponseApiModel)
+        public IQueryable<SportEventModel> GetSportEvents([FromBody]SportEventApiModel registrationResponseApiModel)
         {
-            return await _sportEventService.GetSportEvents(registrationResponseApiModel);
+            return _sportEventService.GetSportEvents(registrationResponseApiModel);
         }
     }
 }
