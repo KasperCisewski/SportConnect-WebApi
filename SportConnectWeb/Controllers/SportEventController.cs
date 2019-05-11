@@ -22,9 +22,9 @@ namespace SportConnect.Api.Controllers
 
         [HttpPost]
         [Route("getSportEvents")]
-        public IQueryable<SportEventModel> GetSportEvents([FromBody]SportEventApiModel registrationResponseApiModel)
+        public List<SportEventModel> GetSportEvents([FromBody]SportEventApiModel registrationResponseApiModel)
         {
-            return _sportEventService.GetSportEvents(registrationResponseApiModel);
+           return _sportEventService.GetSportEvents(registrationResponseApiModel);
         }
     }
 }

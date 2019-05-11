@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using SportConnect.Core.Domain;
 using SportConnect.Core.Repositories;
 using SportConnect.Infrastructure.DTO.SportEvent;
@@ -21,24 +23,31 @@ namespace SportConnect.Infrastructure.Services.Implemenation
             _userRepository = userRepository;
         }
 
-        public IQueryable<SportEventModel> GetSportEvents(SportEventApiModel sportEventApiModel)
+        public List<SportEventModel> GetSportEvents(SportEventApiModel sportEventApiModel)
         {
-            return _sportEventRepository
+            var events = _sportEventRepository
                 .GetAll()
                 .OrderByDescending(se => CountDistance(sportEventApiModel.Latitude, sportEventApiModel.Longitude, se.EventPlace.Latitude, se.EventPlace.Longitude))
                 .Skip(sportEventApiModel.Skip)
                 .Take(sportEventApiModel.Take)
+                .Include(e => e.EventPlace).ThenInclude(ep => ep.Address)
+                .Include(e => e.SportType)
+                .Include(e => e.ProposedEventSkillLevel)
+                .ToList()
                 .Select(se => new SportEventModel
                 {
+                    Id = se.Id,
                     EventName = se.EventName,
                     EventDate = se.EventStartDate,
                     SportTypeName = se.SportType.SportName,
                     AddressDescription = GetAddresDescription(se.EventPlace.Address),
-                    QuantityOfEventParticipantsDescription = (se.ConfirmedEventParticipants + "/" + se.MaximumNumberOfParticipants).ToString(),
+                    QuantityOfEventParticipantsDescription = (se.ConfirmedEventParticipants.Count() + "/" + se.MaximumNumberOfParticipants).ToString(),
                     ProposedEventSkillLevel = se.ProposedEventSkillLevel.Name,
-                    SportEventManagerName = _userRepository.GetById(se.SportEventManager).Result.Login,
+                    SportEventManagerName = _userRepository.GetById(se.SportEventManagerId).Result.Login,
                     CanJoinToEvent = true
-                });
+                }).ToList();
+
+            return events;
         }
 
         private double CountDistance(
@@ -65,7 +74,7 @@ namespace SportConnect.Infrastructure.Services.Implemenation
         private string GetAddresDescription(Address address)
         {
             var description = address.CityName;
-            description += "\n" + address.ZipCode + "|" + address.Street + " " + address.HouseNumber;
+            description += "\n" + address.ZipCode + " | " + address.Street + " " + address.HouseNumber;
             return description;
         }
     }

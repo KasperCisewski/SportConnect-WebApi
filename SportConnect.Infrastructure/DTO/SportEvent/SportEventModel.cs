@@ -4,6 +4,7 @@ namespace SportConnect.Infrastructure.DTO.SportEvent
 {
     public class SportEventModel
     {
+        public Guid Id { get; set; }
         public string EventName { get; set; }
         public DateTime EventDate { get; set; }
         public string SportTypeName { get; set; }

@@ -15,10 +15,11 @@ namespace SportConnect.Core.Domain
         public EventPlace EventPlace { get; set; }
         public EventType EventType { get; set; }
         public virtual IEnumerable<Message> Messages { get; set; } = new List<Message>();
-        public virtual IEnumerable<UserSportEvent> ConfirmedEventParticipants { get; set; } = new List<UserSportEvent>();       
+        public virtual IEnumerable<UserSportEvent> ConfirmedEventParticipants { get; set; } = new List<UserSportEvent>();
+        public int MinimumNumberOfParticipants { get; set; } = 2;
         public int MaximumNumberOfParticipants { get; set; } = 1000;
         public Enums.SportSkillLevel SportSkillLevelId { get; set; }
         public virtual SportSkillLevel ProposedEventSkillLevel { get; set; }
-        public Guid SportEventManager { get; set; }
+        public Guid SportEventManagerId { get; set; }
     }
 }
