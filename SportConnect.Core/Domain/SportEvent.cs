@@ -9,7 +9,9 @@ namespace SportConnect.Core.Domain
     {
         public string EventName { get; set; }
         public DateTime EventStartDate { get; set; }
+        public DateTime EventStartTime { get; set; }
         public DateTime EventEndDate { get; set; }
+        public DateTime EventEndTime { get; set; }
         public int SportTypeId { get; set; }
         public virtual SportType SportType { get; set; }
         public EventPlace EventPlace { get; set; }

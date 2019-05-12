@@ -8,5 +8,6 @@ namespace SportConnect.Infrastructure.Services.Abstraction
     public interface ISportEventService : IService
     {
         List<SportEventModel> GetSportEvents(SportEventApiModel sportEventApiModel);
+        Task<string> AddNewSportEvent(SportEventApiModelToCreate sportEventApiModelToCreate);
     }
 }

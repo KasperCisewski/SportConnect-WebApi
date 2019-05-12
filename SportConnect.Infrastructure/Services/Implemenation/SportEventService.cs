@@ -77,5 +77,22 @@ namespace SportConnect.Infrastructure.Services.Implemenation
             description += " | " + address.ZipCode + " | " + address.Street + " " + address.HouseNumber;
             return description;
         }
+
+        public async Task<string> AddNewSportEvent(SportEventApiModelToCreate sportEventApiModelToCreate)
+        {
+            throw new NotImplementedException();
+            //var eventPla
+
+            //await _sportEventRepository.Add(new SportEvent
+            //{
+            //    Id=Guid.NewGuid(),
+            //    EventStartDate=sportEventApiModelToCreate.EventStartDate,
+            //    EventStartTime=sportEventApiModelToCreate.EventStartTime,
+            //    EventEndDate=sportEventApiModelToCreate.EventEndDate,
+            //    EventEndTime=sportEventApiModelToCreate.EventEndTime,
+            //    SportTypeId=sportEventApiModelToCreate.SportTypeItemId,
+            //    EventPlace=
+            //});
+        }
     }
 }
