@@ -14,13 +14,22 @@ namespace SportConnect.Infrastructure.Services.Implemenation
     {
         private readonly ISportEventRepository _sportEventRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IAddressRepository _addressRepository;
+        private readonly IEventPlaceRepository _eventPlaceRepository;
+        private readonly IEventTypeRepository _eventTypeRepository;
 
         public SportEventService(
             ISportEventRepository sportEventRepository,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            IAddressRepository addressRepository,
+            IEventPlaceRepository eventPlaceRepository,
+            IEventTypeRepository eventTypeRepository)
         {
             _sportEventRepository = sportEventRepository;
             _userRepository = userRepository;
+            _addressRepository = addressRepository;
+            _eventPlaceRepository = eventPlaceRepository;
+            _eventTypeRepository = eventTypeRepository;
         }
 
         public List<SportEventModel> GetSportEvents(SportEventApiModel sportEventApiModel)
@@ -80,19 +89,84 @@ namespace SportConnect.Infrastructure.Services.Implemenation
 
         public async Task<string> AddNewSportEvent(SportEventApiModelToCreate sportEventApiModelToCreate)
         {
-            throw new NotImplementedException();
-            //var eventPla
+            var eventPlace = await GetOrCreateNewEventPlace(sportEventApiModelToCreate.CityName, sportEventApiModelToCreate.Street, sportEventApiModelToCreate.ZipCode, sportEventApiModelToCreate.HouseNumber);
 
-            //await _sportEventRepository.Add(new SportEvent
-            //{
-            //    Id=Guid.NewGuid(),
-            //    EventStartDate=sportEventApiModelToCreate.EventStartDate,
-            //    EventStartTime=sportEventApiModelToCreate.EventStartTime,
-            //    EventEndDate=sportEventApiModelToCreate.EventEndDate,
-            //    EventEndTime=sportEventApiModelToCreate.EventEndTime,
-            //    SportTypeId=sportEventApiModelToCreate.SportTypeItemId,
-            //    EventPlace=
-            //});
+            var eventType = sportEventApiModelToCreate.IsEventTypeSwitched ? await _eventTypeRepository.GetById(Core.Enums.EventType.Open) : await _eventTypeRepository.GetById(Core.Enums.EventType.Closed);
+
+            try
+            {
+                await _sportEventRepository.Add(new SportEvent
+                {
+                    Id = Guid.NewGuid(),
+                    EventName = sportEventApiModelToCreate.EventName,
+                    EventStartDate = sportEventApiModelToCreate.EventStartDate,
+                    EventStartTime = sportEventApiModelToCreate.EventStartTime,
+                    EventEndDate = sportEventApiModelToCreate.EventEndDate,
+                    EventEndTime = sportEventApiModelToCreate.EventEndTime,
+                    SportTypeId = sportEventApiModelToCreate.SportTypeItemId,
+                    EventPlace = eventPlace,
+                    EventType = eventType,
+                    MinimumNumberOfParticipants = sportEventApiModelToCreate.MinimumNumberOfParticipants,
+                    MaximumNumberOfParticipants = sportEventApiModelToCreate.MaximumNumberOfParticipants,
+                    SportSkillLevelId = (Core.Enums.SportSkillLevel)sportEventApiModelToCreate.ProposedSportSkillLevelId,
+                    //TODO: add user id from mobile and set him to event manager
+                    SportEventManagerId = _userRepository.GetAll().FirstOrDefault(u => u.RoleId == Core.Enums.Role.Administrator).Id
+                });
+
+                return "Event has been added";
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return "Error";
+        }
+
+        private async Task<EventPlace> GetOrCreateNewEventPlace(string cityName, string street, string zipCode, int houseNumber)
+        {
+            var eventAddress = _addressRepository.GetAll()
+                .FirstOrDefault(a => a.CityName == cityName &&
+                a.HouseNumber == houseNumber &&
+                a.Street == street &&
+                a.ZipCode == zipCode);
+
+            if (eventAddress != null)
+            {
+                var eventPlace = _eventPlaceRepository.GetAll()
+                    .Include(ep => ep.Address)
+                    .First(ep => ep.Address.Id == eventAddress.Id);
+                if (eventPlace != null)
+                {
+                    return eventPlace;
+                }
+            }
+
+            var address = new Address
+            {
+                Id = Guid.NewGuid(),
+                Street = street,
+                CityName = cityName,
+                ZipCode = zipCode,
+                HouseNumber = houseNumber
+            };
+
+            await _addressRepository.Add(address);
+
+            //TODO: add getting lattitude and longitude for address from google maps 
+            var eventPlaceModel = new EventPlace
+            {
+                Id = Guid.NewGuid(),
+                Address = address,
+                Latitude = 0,
+                Longitude = 0
+            };
+
+            await _eventPlaceRepository.Add(eventPlaceModel);
+
+            return eventPlaceModel;
         }
     }
 }
+
