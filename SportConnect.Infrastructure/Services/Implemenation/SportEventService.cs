@@ -74,7 +74,7 @@ namespace SportConnect.Infrastructure.Services.Implemenation
         private string GetAddresDescription(Address address)
         {
             var description = address.CityName;
-            description += "\n" + address.ZipCode + " | " + address.Street + " " + address.HouseNumber;
+            description += " | " + address.ZipCode + " | " + address.Street + " " + address.HouseNumber;
             return description;
         }
     }
