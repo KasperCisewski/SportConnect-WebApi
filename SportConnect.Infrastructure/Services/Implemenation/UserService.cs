@@ -7,6 +7,7 @@ using System;
 using SportConnect.Infrastructure.DTO.LoginAndRegistration;
 using SportConnect.Infrastructure.DTO.User;
 using System.Collections.Generic;
+using SportConnect.Core.Domain;
 
 namespace SportConnect.Infrastructure.Services.Implemenation
 {
@@ -45,16 +46,41 @@ namespace SportConnect.Infrastructure.Services.Implemenation
                 .GetAll()
                 .Where(u => u.IsDeleted == false)
                 .Select(u => new UserModel
-            {
-                Id = u.Id,
-                Email = u.Email,
-                Login = u.Login
-            });
+                {
+                    Id = u.Id,
+                    Email = u.Email,
+                    Login = u.Login
+                });
 
             return Task.FromResult(existingUsers.ToList());
         }
 
-        public Task<LoginApiModel> TryToLoginAndGetUserRoleId(string login, string password)
+        public async Task<UserProfileModel> GetUserProfileData(Guid userId)
+        {
+            var user = await _userRepository.GetById(userId);
+
+            return new UserProfileModel
+            {
+                UserId = user.Id,
+                Login = user.Login,
+                Email = user.Email,
+                FacouriteSportTypeId = user.FavouriteSportTypeId
+            };
+        }
+
+        public async Task UpdateUserProfile(UserProfileModel userProfileModel)
+        {
+            var user = await _userRepository.GetById(userProfileModel.UserId);
+
+            user.FavouriteSportTypeId = userProfileModel.FacouriteSportTypeId;
+            user.Email = userProfileModel.Email;
+            user.Login = userProfileModel.Login;
+
+
+            await _userRepository.Update(user);
+        }
+
+        public Task<LoginApiModel> TryToLoginAndGetData(string login, string password)
         {
             var tryToLoginToAppQuery = _userRepository
                                  .GetAll()
@@ -64,7 +90,9 @@ namespace SportConnect.Infrastructure.Services.Implemenation
                                  .Select(u => new
                                  {
                                      UserId = u.Id,
-                                     UserRoleId = (int)u.RoleId
+                                     UserRoleId = (int)u.RoleId,
+                                     u.Login,
+                                     u.Email
                                  })
                                  .First();
 
@@ -76,7 +104,10 @@ namespace SportConnect.Infrastructure.Services.Implemenation
                 var loginApiResult = new LoginApiModel
                 {
                     IsSuccess = true,
-                    UserRoleId = tryToLoginToAppQuery.UserRoleId
+                    UserRoleId = tryToLoginToAppQuery.UserRoleId,
+                    UserId = tryToLoginToAppQuery.UserId,
+                    Login = tryToLoginToAppQuery.Login,
+                    Email = tryToLoginToAppQuery.Email
                 };
 
                 return Task.FromResult(loginApiResult);

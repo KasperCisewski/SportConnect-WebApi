@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SportConnect.Infrastructure.DTO.LoginAndRegistration;
@@ -22,13 +23,7 @@ namespace SportConnect.Api.Controllers
         [Route("signIn")]
         public async Task<LoginApiModel> SignIn(string login, string password)
         {
-            var loginResultModel = await _userService.TryToLoginAndGetUserRoleId(login, password);
-
-            return new LoginApiModel
-            {
-                IsSuccess = loginResultModel.IsSuccess,
-                UserRoleId= loginResultModel.UserRoleId
-            };
+            return await _userService.TryToLoginAndGetData(login, password);
         }
 
         [HttpGet]
@@ -53,6 +48,20 @@ namespace SportConnect.Api.Controllers
             {
                 IsExist = isExist
             };
+        }
+
+        [HttpGet]
+        [Route("getUserProfileData")]
+        public async Task<UserProfileModel> GetProfileData(Guid userId)
+        {
+            return await _userService.GetUserProfileData(userId);
+        }
+
+        [HttpPut]
+        [Route("updateUserProfileData")]
+        public async Task UpdateUserProfileData([FromBody]UserProfileModel userProfileModel)
+        {
+            await _userService.UpdateUserProfile(userProfileModel);
         }
 
         [HttpGet]
