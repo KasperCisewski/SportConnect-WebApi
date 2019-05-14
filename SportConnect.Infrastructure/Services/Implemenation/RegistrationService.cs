@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using SportConnect.Core.Domain;
 using SportConnect.Core.Repositories;
-using SportConnect.Infrastructure.DTO;
+using SportConnect.Infrastructure.DTO.LoginAndRegistration;
 using SportConnect.Infrastructure.Repositories;
 using SportConnect.Infrastructure.Services.Abstraction;
 

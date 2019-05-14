@@ -10,5 +10,7 @@ namespace SportConnect.Core.Domain.Base
 
         [Column(Order = 1)]
         public DateTime CreationDateTime { get; set; } = DateTime.Now;
+
+        public bool IsDeleted { get; set; }
     }
 }

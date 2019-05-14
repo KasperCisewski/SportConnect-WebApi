@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SportConnect.Infrastructure.DTO;
+using SportConnect.Infrastructure.DTO.LoginAndRegistration;
 using SportConnect.Infrastructure.Services.Abstraction;
 
 namespace SportConnect.Api.Controllers

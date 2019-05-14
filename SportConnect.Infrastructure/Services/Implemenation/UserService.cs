@@ -4,7 +4,9 @@ using SportConnect.Core.Repositories;
 using SportConnect.Infrastructure.Services.Abstraction;
 using System.Linq;
 using System;
-using SportConnect.Infrastructure.DTO;
+using SportConnect.Infrastructure.DTO.LoginAndRegistration;
+using SportConnect.Infrastructure.DTO.User;
+using System.Collections.Generic;
 
 namespace SportConnect.Infrastructure.Services.Implemenation
 {
@@ -35,6 +37,21 @@ namespace SportConnect.Infrastructure.Services.Implemenation
                 .Select(u => u.Login).ToList();
 
             return Task.FromResult(allLoginsInRepository.Contains(login));
+        }
+
+        public Task<List<UserModel>> GetExistingUsers()
+        {
+            var existingUsers = _userRepository
+                .GetAll()
+                .Where(u => u.IsDeleted == false)
+                .Select(u => new UserModel
+            {
+                Id = u.Id,
+                Email = u.Email,
+                Login = u.Login
+            });
+
+            return Task.FromResult(existingUsers.ToList());
         }
 
         public Task<LoginApiModel> TryToLoginAndGetUserRoleId(string login, string password)

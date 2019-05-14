@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SportConnect.Infrastructure.DTO;
+using SportConnect.Infrastructure.DTO.LoginAndRegistration;
+using SportConnect.Infrastructure.DTO.User;
 using SportConnect.Infrastructure.Services.Abstraction;
 
 namespace SportConnect.Api.Controllers
@@ -51,6 +53,13 @@ namespace SportConnect.Api.Controllers
             {
                 IsExist = isExist
             };
+        }
+
+        [HttpGet]
+        [Route("getExistingUsers")]
+        public async Task<List<UserModel>> GetExistingUsers()
+        {
+            return await _userService.GetExistingUsers();
         }
     }
 

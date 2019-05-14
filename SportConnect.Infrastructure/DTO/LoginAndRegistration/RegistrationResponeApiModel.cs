@@ -1,4 +1,4 @@
-﻿namespace SportConnect.Infrastructure.DTO
+﻿namespace SportConnect.Infrastructure.DTO.LoginAndRegistration
 {
     public class RegistrationResponseApiModel
     {
