@@ -7,19 +7,21 @@ using System;
 using SportConnect.Infrastructure.DTO.LoginAndRegistration;
 using SportConnect.Infrastructure.DTO.User;
 using System.Collections.Generic;
-using SportConnect.Core.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace SportConnect.Infrastructure.Services.Implemenation
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IMapper _mapper;
+        private readonly IUserLogRecordRepository _userLogRecordRepository;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(
+            IUserRepository userRepository,
+            IUserLogRecordRepository userLogRecordRepository)
         {
             _userRepository = userRepository;
-            _mapper = mapper;
+            _userLogRecordRepository = userLogRecordRepository;
         }
 
         public Task<bool> CheckEmailIsExist(string email)
@@ -99,7 +101,10 @@ namespace SportConnect.Infrastructure.Services.Implemenation
 
             if (tryToLoginToAppQuery != null)
             {
-                _userRepository.AddNewLogRecord(tryToLoginToAppQuery.UserId);
+                _userLogRecordRepository.Add(new Core.Domain.UserLogRecords
+                {
+                    UserId = tryToLoginToAppQuery.UserId
+                });
 
                 var loginApiResult = new LoginApiModel
                 {
@@ -114,6 +119,21 @@ namespace SportConnect.Infrastructure.Services.Implemenation
             }
             return Task.FromResult(new LoginApiModel());
 
+        }
+
+        public Task<List<UserLogRecordModel>> GetUsersLogRecords()
+        {
+            var userLogRecords = _userLogRecordRepository
+                .GetAll()
+                .Include(u => u.User)
+                .Select(ul => new UserLogRecordModel
+                {
+                    DateTime = ul.CreationDateTime,
+                    UserLogin = ul.User.Login
+                })
+                .ToList();
+
+            return Task.FromResult(userLogRecords);
         }
     }
 }

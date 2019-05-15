@@ -2,7 +2,7 @@
 
 namespace SportConnect.Core.Repositories
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IUserLogRecordRepository : IRepository<UserLogRecords>
     {
     }
 }

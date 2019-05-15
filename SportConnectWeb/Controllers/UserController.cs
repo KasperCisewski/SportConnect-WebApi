@@ -70,6 +70,13 @@ namespace SportConnect.Api.Controllers
         {
             return await _userService.GetExistingUsers();
         }
+
+        [HttpGet]
+        [Route("getUsersLogRecords")]
+        public async Task<List<UserLogRecordModel>> GetUsersLogRecords()
+        {
+            return await _userService.GetUsersLogRecords();
+        }
     }
 
     public class LoginExistApiModel

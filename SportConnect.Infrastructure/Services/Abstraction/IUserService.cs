@@ -14,5 +14,6 @@ namespace SportConnect.Infrastructure.Services.Abstraction
         Task<List<UserModel>> GetExistingUsers();
         Task<UserProfileModel> GetUserProfileData(Guid userId);
         Task UpdateUserProfile(UserProfileModel userProfileModel);
+        Task<List<UserLogRecordModel>> GetUsersLogRecords();
     }
 }

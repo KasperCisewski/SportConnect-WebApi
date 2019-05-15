@@ -4,9 +4,9 @@ using SportConnect.Infrastructure.Data;
 
 namespace SportConnect.Infrastructure.Repositories
 {
-    public class UserRepository : CrudRepository<User>, IUserRepository
+    public class UserLogRepository : CrudRepository<UserLogRecords>, IUserLogRecordRepository
     {
-        public UserRepository(SportConnectContext context) : base(context)
+        public UserLogRepository(SportConnectContext context) : base(context)
         {
         }
     }
