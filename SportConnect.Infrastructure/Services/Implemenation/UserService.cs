@@ -87,6 +87,7 @@ namespace SportConnect.Infrastructure.Services.Implemenation
             var tryToLoginToAppQuery = _userRepository
                                  .GetAll()
                                  .Where(u =>
+                                 (u.IsDeleted == false) &&
                                  (u.Login == login && u.Password == password) ||
                                  (u.Email == login && u.Password == password))
                                  .Select(u => new
@@ -134,6 +135,15 @@ namespace SportConnect.Infrastructure.Services.Implemenation
                 .ToList();
 
             return Task.FromResult(userLogRecords);
+        }
+
+        public async Task DeleteUser(Guid userId)
+        {
+            var user = await _userRepository.GetById(userId);
+
+            user.IsDeleted = true;
+
+            await _userRepository.Update(user);
         }
     }
 }

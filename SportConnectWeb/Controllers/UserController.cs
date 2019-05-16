@@ -77,6 +77,13 @@ namespace SportConnect.Api.Controllers
         {
             return await _userService.GetUsersLogRecords();
         }
+
+        [HttpDelete]
+        [Route("deleteUser")]
+        public async Task DeleteUser(Guid userId)
+        {
+            await _userService.DeleteUser(userId);
+        }
     }
 
     public class LoginExistApiModel
