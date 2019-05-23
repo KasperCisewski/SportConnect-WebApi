@@ -26,17 +26,24 @@ namespace SportConnect.Infrastructure.Services.Implemenation
         }
         public async Task<bool> Register(RegistrationResponseApiModel registrationResponseApiModel)
         {
-            await _userRepository.Add(new User
+            try
             {
-                Email = registrationResponseApiModel.Email,
-                Login = registrationResponseApiModel.Login,
-                Password = registrationResponseApiModel.Password,
-                RoleId = (int)Core.Enums.Role.Normal,
-                FavouriteSportTypeId = _sportTypeRepository.GetAll().FirstOrDefault().Id
-            });
+                await _userRepository.Add(new User
+                {
+                    Email = registrationResponseApiModel.Email,
+                    Login = registrationResponseApiModel.Login,
+                    Password = registrationResponseApiModel.Password,
+                    RoleId = (int)Core.Enums.Role.Normal,
+                    FavouriteSportTypeId = _sportTypeRepository.GetAll().FirstOrDefault().Id
+                });
+                return true;
+            }
+            catch (Exception)
+            {
 
-            return _userRepository.GetAll().Any(u =>
-                u.Login == registrationResponseApiModel.Login && u.Email == registrationResponseApiModel.Email);
+                throw;
+            }
+            return false;
         }
     }
 }
