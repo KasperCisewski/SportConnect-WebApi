@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using SportConnect.Core.Domain;
 using SportConnect.Core.Repositories;
 using SportConnect.Infrastructure.DTO.SportEvent;
+using SportConnect.Infrastructure.DTO.User;
 using SportConnect.Infrastructure.Services.Abstraction;
 
 namespace SportConnect.Infrastructure.Services.Implemenation
@@ -13,6 +14,7 @@ namespace SportConnect.Infrastructure.Services.Implemenation
     public class SportEventService : ISportEventService
     {
         private readonly ISportEventRepository _sportEventRepository;
+        private readonly IUserSportEventRepository _userSportEventRepository;
         private readonly IUserRepository _userRepository;
         private readonly IAddressRepository _addressRepository;
         private readonly IEventPlaceRepository _eventPlaceRepository;
@@ -20,12 +22,14 @@ namespace SportConnect.Infrastructure.Services.Implemenation
 
         public SportEventService(
             ISportEventRepository sportEventRepository,
+            IUserSportEventRepository userSportEventRepository,
             IUserRepository userRepository,
             IAddressRepository addressRepository,
             IEventPlaceRepository eventPlaceRepository,
             IEventTypeRepository eventTypeRepository)
         {
             _sportEventRepository = sportEventRepository;
+            _userSportEventRepository = userSportEventRepository;
             _userRepository = userRepository;
             _addressRepository = addressRepository;
             _eventPlaceRepository = eventPlaceRepository;
@@ -42,6 +46,7 @@ namespace SportConnect.Infrastructure.Services.Implemenation
                 .Include(e => e.EventPlace).ThenInclude(ep => ep.Address)
                 .Include(e => e.SportType)
                 .Include(e => e.ProposedEventSkillLevel)
+                .Include(e => e.ConfirmedEventParticipants)
                 .ToList()
                 .Select(se => new SportEventModel
                 {
@@ -166,6 +171,68 @@ namespace SportConnect.Infrastructure.Services.Implemenation
             await _eventPlaceRepository.Add(eventPlaceModel);
 
             return eventPlaceModel;
+        }
+
+        public async Task<IsUserAttendedToSportEventModel> IsUserJoinToEventInPast(Guid id, Guid userId)
+        {
+
+            IsUserAttendedToSportEventModel isJoinToEventInPastModel = new IsUserAttendedToSportEventModel();
+
+            var userSportEventList = _userSportEventRepository.GetAll().Where(us => us.UserId == userId && us.SportEventId == id).ToList();
+
+            isJoinToEventInPastModel.IsAttended = userSportEventList.Any();
+
+            return await Task.FromResult(isJoinToEventInPastModel);
+        }
+
+        public async Task UpdateUserSportEvent(Guid id, Guid userId, bool isDeleteFromConfirmedParticipants)
+        {
+
+
+            if (isDeleteFromConfirmedParticipants)
+            {
+                var userSportEvent = _userSportEventRepository.GetAll()
+                    .FirstOrDefault(us => us.UserId == userId && us.SportEventId == id);
+
+                await _userSportEventRepository.Remove(userSportEvent);
+            }
+            else
+            {
+                var userSportEvent = new UserSportEvent
+                {
+                    Id = Guid.NewGuid(),
+                    SportEventId = id,
+                    UserId = userId
+                };
+                await _userSportEventRepository.Add(userSportEvent);
+            }
+        }
+
+        public List<SportEventModel> GetSportEventsForUser(Guid userId)
+        {
+
+            var events = _sportEventRepository
+               .GetAll()
+               .Include(e => e.EventPlace).ThenInclude(ep => ep.Address)
+               .Include(e => e.SportType)
+               .Include(e => e.ProposedEventSkillLevel)
+               .Include(e => e.ConfirmedEventParticipants)
+               .Where(e => e.ConfirmedEventParticipants.Any(ev => ev.UserId == userId))
+               .ToList()
+               .Select(se => new SportEventModel
+               {
+                   Id = se.Id,
+                   EventName = se.EventName,
+                   EventDate = se.EventStartDate,
+                   SportTypeName = se.SportType.SportName,
+                   AddressDescription = GetAddresDescription(se.EventPlace.Address),
+                   QuantityOfEventParticipantsDescription = (se.ConfirmedEventParticipants.Count() + "/" + se.MaximumNumberOfParticipants).ToString(),
+                   ProposedEventSkillLevel = se.ProposedEventSkillLevel.Name,
+                   SportEventManagerName = _userRepository.GetById(se.SportEventManagerId).Result.Login,
+                   CanJoinToEvent = true
+               }).ToList();
+
+            return events;
         }
     }
 }
