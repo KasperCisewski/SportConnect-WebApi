@@ -13,12 +13,15 @@ namespace SportConnect.Infrastructure.Services.Implemenation
     public class RegistrationService : IRegistrationService
     {
         private readonly IUserRepository _userRepository;
+        private readonly ISportTypeRepository _sportTypeRepository;
         private readonly IMapper _mapper;
         public RegistrationService(
             IUserRepository userRepository,
+            ISportTypeRepository sportTypeRepository,
             IMapper mapper)
         {
             _userRepository = userRepository;
+            _sportTypeRepository = sportTypeRepository;
             _mapper = mapper;
         }
         public async Task<bool> Register(RegistrationResponseApiModel registrationResponseApiModel)
@@ -29,7 +32,7 @@ namespace SportConnect.Infrastructure.Services.Implemenation
                 Login = registrationResponseApiModel.Login,
                 Password = registrationResponseApiModel.Password,
                 RoleId = (int)Core.Enums.Role.Normal,
-                FavouriteSportTypeId = registrationResponseApiModel.FavoriteSportTypeId
+                FavouriteSportTypeId = _sportTypeRepository.GetAll().FirstOrDefault().Id
             });
 
             return _userRepository.GetAll().Any(u =>
